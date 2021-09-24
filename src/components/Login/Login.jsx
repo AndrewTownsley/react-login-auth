@@ -8,7 +8,7 @@ const loginUser = async (credentials) => {
         headers: {
             'Content-Type': 'application.json'
         },
-        body: JSON.Stringify(credentials)
+        body: JSON.stringify(credentials)
     })
     .then(data => data.json())
 }
@@ -17,9 +17,18 @@ const Login = ({setToken}) => {
     const [userName, setUserName] = useState()
     const [passWord, setPassWord] = useState()
 
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const token = await loginUser({
+            userName,
+            passWord,
+        })
+        setToken(token)
+    }
+
     return (
         <div>
-            <form action="submit">
+            <form onSubmit={handleSubmit} action="submit">
                 <h2>Please Login to access Dashboard</h2>
                 <label htmlFor="username">
                     <h4>Username</h4>
